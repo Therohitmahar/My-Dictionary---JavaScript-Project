@@ -29,19 +29,24 @@ nav img{
     cursor: pointer;
 }
 nav button{
-    height: 55px;
+    height: 45px;
     margin: 5px;
     margin-right: 40px;
-    padding: 20px;
+    padding: 15px;
     padding-bottom: 40px;
     text-align: center;
     border: transparent;
     border-radius: 15px;    
     color: whitesmoke;
-    background-color: black;
+    background-color: #FAAB78;
     font-weight: 700;
+    box-shadow: 2px 10px 10px #a37150;
+    position:fixed;
     
+    right: 50px;
+    bottom: 80px;
 }
+
 .container{
     background-color: #FAAB78;
     width: 90vmin;
@@ -52,8 +57,9 @@ nav button{
     padding: 80px 50px;
     border-radius: 10px;
     box-shadow: 0 20px 40px #FAAB78;
-
+    transition: 0.5s;
 }
+
 .input-box{
     width: 100%;
     display: flex;
@@ -86,6 +92,7 @@ nav button{
 
 .result{
     position: relative;
+    transition: 0.5s;
 
 }
 .result .word{
@@ -115,6 +122,7 @@ nav button{
     color: #fde1b6;
     margin: 5px 0 20px 0;
     font-size: 14px;
+    transition: 0.5s;
 }
 
 .word-meaning{
@@ -132,4 +140,44 @@ nav button{
 .error{
     margin-top: 80px;
     
+}
+.history{
+    background-color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    height: 80vh;
+    display: none;
+    transition: 0.4s;
+}
+.bigcontainer{
+    display: grid;
+    gap: 10px;
+    position: absolute;
+    top: 74px;
+    left: 277px;
+    grid-template-columns: repeat(3,270px);
+    background-color: #e08c54;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px #e79f6e;
+}
+.history-container{
+    position: relative;
+    height: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px #915228;
+    color: #FFFBAC;
+}
+.cross{
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+    left: 1300px;
+    top: 25px;
+    color: black;
+    transition: 0.2s;
+}
+.cross:hover{
+    color: #915228;
+    scale: 1.1;
 }
