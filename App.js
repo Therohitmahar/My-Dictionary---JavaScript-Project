@@ -1,6 +1,6 @@
 
 const url="https://api.dictionaryapi.dev/api/v2/entries/en/";
-
+let arr = ["rohit", "sameer"]
 const result = document.getElementById('result');
 const sound = document.getElementById('sound');
 const btn =document.getElementById('search-btn');
@@ -11,7 +11,6 @@ function searchWord(){
     fetch(`${url}${inputWord}`)
     .then((response) => response.json())
     .then((data)=> {
-        console.log(data);
         result.innerHTML = `<div class="word">
         <h3>${inputWord}</h3>
         <button onClick="playSound()"><img src="img/volume-up-interface-symbol.png"></button>
@@ -42,7 +41,7 @@ function searchWord(){
     else{
         console.log("dont have auido")
     }
-        
+    
     
 })
 .catch(()=>{
@@ -60,11 +59,47 @@ function playSound(){
     sound.play();
 }
 let history_page= document.getElementById('history-page');
+let bigcontainer = document.querySelector('.bigcontainer');
 
 document.getElementById('history-btn').addEventListener('click',()=>{
     history_page.style.display="block";
-})
-document.getElementById('cross').addEventListener('click', ()=>{
+    console.log("hello")
+});
+let close = document.getElementById('cross');
+close.addEventListener('click',()=>{
     history_page.style.display="none";
 
-})
+});
+
+
+console.log("historynew");
+
+
+const sections = [
+    {
+      title: "Title 1",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quia qui, architecto dolorem nostrum commodi quam iste! Mollitia, necessitatibus maxime."
+    },
+    {
+      title: "Title 2",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quia qui, architecto dolorem nostrum commodi quam iste! Mollitia, necessitatibus maxime."
+    },
+    {
+      title: "Title 3",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quia qui, architecto dolorem nostrum commodi quam iste! Mollitia, necessitatibus maxime."
+    }
+  ];
+
+sections.forEach((word,index) => {
+    let container = document.createElement('div');
+    let heading = document.createElement('h1');
+    let disc = document.createElement('p');
+    container.classList.add("history-container",`container${index+1}`);
+
+    heading.innerHTML =word.title;
+    disc.innerHTML =word.text;
+    container.appendChild(heading);
+    container.appendChild(disc);
+    bigcontainer.appendChild(container);
+});
+console.log(history_page)
