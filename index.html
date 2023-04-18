@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <!-- <script src="https://kit.fontawesome.com/9cbd9dce4b.js" crossorigin="anonymous"></script> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">    
-    <title> Dictionary </title>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Dictionary</title>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><img src="img/logo.png" alt=""></li>
-                <button id="history-btn">HISTORY</button>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><img src="img/logo.png" alt="" /></li>
+          <button id="history-btn">HISTORY</button>
+        </ul>
+      </nav>
     </header>
-    
-    <main>
-        <audio id="sound"></audio>
-        <div class="container">
-            <div class="input-box">
-                  <input type="text" placeholder="Enter the Word Here..." id="input">
-              <button id="search-btn" >
-                <label style="cursor: pointer;"><i class="fa-solid fa-magnifying-glass"></i> Search</label>
-              </button>
-            </div>
-            <div class="result" id="result"></div>
-        </div>
-    </main>
-    <div class="history" id="history-page">                
-        <i id="cross"class="cross fa-sharp fa-solid fa-circle-xmark"></i>
 
-        <div class="bigcontainer">
-            
-            
+    <main>
+      <audio id="sound"></audio>
+      <div class="container">
+        <div class="input-box">
+          <input type="text" placeholder="Enter the Word Here..." id="input" />
+          <button id="search-btn">
+            <label style="cursor: pointer"
+              ><i class="fa-solid fa-magnifying-glass"></i> Search</label
+            >
+          </button>
         </div>
+        <div class="result" id="result"></div>
+      </div>
+    </main>
+    <div class="history" id="history-page">
+      <i id="cross" class="cross fa-sharp fa-solid fa-circle-xmark"></i>
     </div>
-<script src="App.js"></script>
-</body>
+    <script src="App.js"></script>
+  </body>
 </html>
