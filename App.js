@@ -1,105 +1,114 @@
-let sections = [
-  {
-    title: "Title 1",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quia qui, architecto dolorem nostrum commodi quam iste! Mollitia, necessitatibus maxime.",
-  },
-  {
-    title: "Title 2",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quia qui, architecto dolorem nostrum commodi quam iste! Mollitia, necessitatibus maxime.",
-  },
-  {
-    title: "Title 3",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quia qui, architecto dolorem nostrum commodi quam iste! Mollitia, necessitatibus maxime.",
-  },
+let topThree;
+const myArray = [
+    { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
+    { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
+    { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
 ];
-const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
-const result = document.getElementById("result");
-const sound = document.getElementById("sound");
-const btn = document.getElementById("search-btn");
-let input = document.getElementById("input");
-function searchWord() {
-  let inputWord = input.value;
-
-  fetch(`${url}${inputWord}`)
-    .then((response) => response.json())
-    .then((data) => {
-      // add the new word to the sections array
-      sections.unshift({
-        title: inputWord,
-        text: data[0].meanings[0].definitions[0].definition,
-      });
-
-      result.innerHTML = `<div class="word">
-          <h3>${inputWord}</h3>
-          <button onClick="playSound()"><img src="img/volume-up-interface-symbol.png"></button>
-      </div>
-      <div class="details">
-          <p>${data[0].meanings[0].partOfSpeech} </p>
-          <p>/${data[0].phonetic} /</p>
-      </div>
-      <p class="word-meaning">
-          ${data[0].meanings[0].definitions[0].definition}
-      </p>
-      <p class="word-example">
-         ${data[0].meanings[0].definitions[0].example || ""}
-      </p>`;
-
-      if (`${data[0].phonetics[0].audio}`.includes("https")) {
-        sound.setAttribute("src", `${data[0].phonetics[0].audio}`);
-      } else if (`${data[0].phonetics[1].audio}`.includes("https")) {
-        sound.setAttribute("src", `${data[0].phonetics[1].audio}`);
-      } else if (`${data[0].phonetics[2].audio}`.includes("https")) {
-        sound.setAttribute("src", `${data[0].phonetics[2].audio}`);
-      } else {
-        alert("don't have audio");
-      }
-    })
-    .then(() => {
-      console.log("hearing");
-    })
-    .catch(() => {
-      result.innerHTML = `<h3 class="error"> Couldn't Find The Word '${inputWord}'</h3>`;
-    });
+const previousData = localStorage.getItem("history");
+if (previousData == null) {
+    const arrayString = JSON.stringify(myArray);
+    localStorage.setItem("history", arrayString);
 }
 
-btn.addEventListener("click", searchWord);
-input.addEventListener("keypress", function (event) {
-  if (event.keyCode === 13) {
-    searchWord();
-  }
+const existingArrayString = localStorage.getItem("history");
+const existingArray = existingArrayString ? JSON.parse(existingArrayString) : [];
+
+function deleteHistory(title) {
+    const deleteMe = topThree.filter(item => item.title !== title);
+    localStorage.setItem("history", JSON.stringify(deleteMe));
+    console.log(deleteMe);
+    Settinghistory();
+}
+function setToLocalStorage(title, meaning) {
+    const newWord = { title: title, meaning: meaning };
+    existingArray.push(newWord);
+
+    localStorage.setItem("history", JSON.stringify(existingArray.slice(-3, existingArray.length)));
+    Settinghistory();
+}
+function Settinghistory() {
+    const before = document.querySelector('.before');
+    const historyData = localStorage.getItem("history");
+    topThree = JSON.parse(historyData);
+
+    before.innerHTML = (topThree.map((item) => (`<div class="container-tab">
+        <div><h1>${item.title}</h1><p><i onclick="deleteHistory('${item.title}')" class="fa-solid fa-trash-can"></i></p></div>
+        <p>${item.meaning}
+        </p>
+
+        
+    </div>`))
+    )
+}
+
+Settinghistory();
+
+const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const result = document.getElementById('result');
+const sound = document.getElementById('sound');
+const btn = document.getElementById('search-btn');
+let input = document.getElementById('input');
+function searchWord() {
+    let inputWord = input.value;
+
+    fetch(`${url}${inputWord}`)
+        .then((response) => response.json())
+        .then((data) => {
+            result.innerHTML = `<div class="word">
+        <h3>${data[0].word}</h3>
+        <button onClick="playSound()"><img src="img/volume-up-interface-symbol.png"></button>
+    </div>
+    <div class="details">
+        <p>${data[0].meanings[0].partOfSpeech} </p>
+        <p>/${data[0].phonetic} /</p>
+    </div>
+    <p class="word-meaning">
+        ${data[0].meanings[0].definitions[0].definition}
+    </p>
+    <p class="word-example">
+       ${data[0].meanings[0].definitions[0].example || ""}
+    </p>`;
+
+            setToLocalStorage(data[0].word, data[0].meanings[0].definitions[0].definition);
+
+            if (`${data[0].phonetics[0].audio}`.includes("https")) {
+                sound.setAttribute("src", `${data[0].phonetics[0].audio}`);
+
+            }
+            else if (`${data[0].phonetics[1].audio}`.includes("https")) {
+                sound.setAttribute("src", `${data[0].phonetics[1].audio}`);
+
+            }
+            else if (`${data[0].phonetics[2].audio}`.includes("https")) {
+                sound.setAttribute("src", `${data[0].phonetics[2].audio}`);
+
+            }
+            else {
+                console.log("don't have audio")
+            }
+
+        })
+        .catch(() => {
+            result.innerHTML = `<h3 class="error" >Couldn't Find The Word '${inputWord}'</h3>`
+        })
+}
+btn.addEventListener('click', searchWord);
+input.addEventListener('keypress', function (event) {
+    if (event.keyCode === 13) {
+        searchWord();
+    }
 });
 
 function playSound() {
-  sound.play();
+    sound.play();
+}
+function crossing() {
+    aside.style.display = "none";
 }
 
-let history_page = document.getElementById("history-page");
-let BigContainer = document.createElement("div");
-BigContainer.id = "bigcontainer";
-document.getElementById("history-btn").addEventListener("click", () => {
-  history_page.style.display = "block";
-  history_page.appendChild(BigContainer);
+const aside = document.querySelector('aside');
+const beforePage = document.querySelector('.before')
+let historyBtn = document.getElementById("history-btn")
+historyBtn.addEventListener('click', () => {
+    aside.style.display = "block";
 });
-
-let close = document.getElementById("cross");
-close.addEventListener("click", () => {
-  history_page.style.display = "none";
-});
-
-function updateHistory() {
-  BigContainer.innerHTML = "";
-  sections.forEach((word, index) => {
-    container = document.createElement("div");
-    let heading = document.createElement("h1");
-    let disc = document.createElement("p");
-    container.classList.add("history-container", `container${index + 1}`);
-
-    heading.innerHTML = word.title;
-    disc.innerHTML = word.text;
-    container.appendChild(heading);
-    container.appendChild(disc);
-
-    BigContainer.appendChild(container);
-  });
-}
-updateHistory();

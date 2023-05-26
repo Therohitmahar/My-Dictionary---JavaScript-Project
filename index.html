@@ -28,7 +28,7 @@
       <nav>
         <ul>
           <li><img src="img/logo.png" alt="" /></li>
-          <button id="history-btn">HISTORY</button>
+          <button id="history-btn">History</button>
         </ul>
       </nav>
     </header>
@@ -47,9 +47,17 @@
         <div class="result" id="result"></div>
       </div>
     </main>
-    <div class="history" id="history-page">
-      <i id="cross" class="cross fa-sharp fa-solid fa-circle-xmark"></i>
-    </div>
+    <aside>
+      <div>
+        <h2>History</h2>
+        <div class="before"></div>
+        <i
+          id="cross"
+          onclick="crossing()"
+          class="cross fa-sharp fa-solid fa-circle-xmark"
+        ></i>
+      </div>
+    </aside>
     <script src="App.js"></script>
   </body>
 </html>
