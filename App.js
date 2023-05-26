@@ -31,7 +31,7 @@ function Settinghistory() {
     const historyData = localStorage.getItem("history");
     topThree = JSON.parse(historyData);
 
-    before.innerHTML = (topThree.map((item) => (`<div class="container-tab">
+    before.innerHTML = (topThree.reverse().map((item) => (`<div class="container-tab">
         <div><h1>${item.title}</h1><p><i onclick="deleteHistory('${item.title}')" class="fa-solid fa-trash-can"></i></p></div>
         <p>${item.meaning}
         </p>
