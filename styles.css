@@ -1,19 +1,33 @@
+:root {
+  --bg-color: #fffbac;
+  --shadow-color: #915228;
+  --btn-bg: #faab78;
+  --btn-shadow: #a37150;
+  --text-color: #f8efe2;
+}
 * {
-  /* #FFD495 */
   margin: 0;
   padding: 0;
   font-family: "Space Mono", monospace;
 }
 body {
-  background-color: #fffbac;
+  background-color: var(--bg-color);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   /* display: flex; */
 }
+body.dark {
+  --bg-color: #1b1914;
+  --shadow-color: #585858;
+  --btn-bg: #684646;
+  --btn-shadow: #3d2b1f;
+  --text-color: #d38d3f;
+}
 nav {
-  background-color: #fffbac;
+  background-color: var(--bg-color);
   height: 70px;
+  box-shadow: 0 2px 8px var(--shadow-color);
 }
 button {
   cursor: pointer;
@@ -29,34 +43,32 @@ nav ul {
   display: flex;
   list-style: none;
   justify-content: space-between;
+  align-items: center;
 }
 nav img {
   margin: 5px;
   height: 60px;
   cursor: pointer;
 }
+nav div {
+  height: 100%;
+}
 nav button {
-  height: 45px;
-  margin: 5px;
-  margin-right: 40px;
-  padding: 15px;
-  padding-bottom: 40px;
+  margin: 15px 0;
+  padding: 10px 10px;
   text-align: center;
+  border-radius: 5px;
   border: transparent;
-  border-radius: 15px;
-  background-color: #faab78;
-  box-shadow: 2px 10px 10px #a37150;
-  position: fixed;
-  right: 50px;
-  bottom: 80px;
+  background-color: var(--btn-bg);
+  box-shadow: 2px 1px 5px var(--btn-shadow);
 }
 
 .container {
-  background-color: #faab78;
+  background-color: var(--btn-bg);
   position: relative;
   padding: 80px 50px;
   border-radius: 10px;
-  box-shadow: 0 20px 40px #faab78;
+  box-shadow: 0 20px 40px var(--btn-bg);
   transition: 0.5s;
   width: 35%;
   z-index: 1;
@@ -69,22 +81,29 @@ nav button {
 }
 .input-box input {
   padding: 5px;
-  background-color: #faab78;
+  background-color: var(--btn-bg);
   width: 70%;
   outline: none;
   border: none;
-  border-bottom: 3px solid #fffbac;
+  border-bottom: 3px solid var(--text-color);
+  color: var(--text-color);
+}
+.input-box input::placeholder {
+  color: var(--text-color);
+  opacity: 0.7;
 }
 .input-box button {
   padding: 10px;
-  width: 25%;
-  background-color: #fffbac;
+  width: 50%;
+  height: 5%;
+  background-color: var(--text-color);
   border: none;
   border-radius: 25px;
   outline: transparent;
-  color: #faab78;
+  color: var(--btn-bg);
   font-size: 18px;
   display: inline-block;
+  aspect-ratio: 9/1;
 }
 .input-box button:hover {
   background-color: #f5f09a;
@@ -93,8 +112,10 @@ nav button {
 }
 
 .result {
+  overflow-x: auto;
   position: relative;
   transition: 0.5s;
+  z-index: 999;
 }
 .result .word {
   display: flex;
@@ -104,7 +125,7 @@ nav button {
 
 .result h3 {
   font-size: 30px;
-  color: #fffbac;
+  color: var(--text-color);
 }
 
 .result button img {
@@ -119,20 +140,20 @@ nav button {
 .result .details {
   display: flex;
   gap: 10px;
-  color: #fde1b6;
+  color: var(--text-color);
   margin: 5px 0 20px 0;
   font-size: 14px;
   transition: 0.5s;
 }
 
 .word-meaning {
-  color: #fde1b6;
+  color: var(--text-color);
   font-size: 16px;
 }
 .word-example {
-  color: #fde1b6;
+  color: var(--text-color);
   font-style: italic;
-  border-left: 5px solid #fffbac;
+  border-left: 5px solid var(--bg-color);
   padding-left: 20px;
   margin-top: 30px;
   font-size: 14px;
@@ -156,7 +177,7 @@ aside {
 .before {
   position: absolute;
   top: 25%;
-  background-color: #faab78;
+  background-color: var(--btn-bg);
   width: 90%;
   min-height: 45vh;
   height: 60vh;
@@ -180,7 +201,7 @@ aside {
   width: 200px;
   height: 80%;
   max-height: 100%;
-  box-shadow: 0 20px 40px #915228;
+  box-shadow: 0 20px 40px var(--shadow-color);
   margin: 20px;
   object-fit: fill;
   overflow: auto;
@@ -206,5 +227,81 @@ aside div h2 {
   width: 20%;
   font-size: 25px;
   z-index: 24;
-  background-color: #faab78;
+  background-color: var(--btn-bg);
+}
+
+@media screen and (max-width: 425px) {
+  body {
+    font-size: 0.1rem;
+  }
+  nav {
+    width: 100vw;
+    position: relative;
+    z-index: 88;
+    height: auto;
+  }
+  nav ul {
+    margin: 0 10px;
+  }
+  nav img {
+    width: 25%;
+    margin-left: 0;
+    height: auto;
+  }
+  nav button {
+    width: 15%;
+    position: static;
+    font-size: 10px;
+    height: auto;
+    padding: 0;
+    margin: 10px;
+    box-shadow: 0px 2px 5px var(--btn-shadow);
+    display: block;
+  }
+  main {
+    /* margin-top: 50px; */
+    width: 100vw;
+    overflow: auto;
+  }
+  .container {
+    margin-top: 50px;
+
+    min-width: 60%;
+    /* aspect-ratio: 7/1; */
+    height: auto;
+    padding: 50px 40px 70px 40px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    position: relative;
+    z-index: 1121;
+  }
+  .container .input-box {
+    flex-direction: column;
+    align-items: center;
+  }
+  .container .input-box input {
+    width: 100%;
+  }
+  .container .input-box button {
+    width: 40%;
+    margin-top: 10px;
+    display: inline;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .result {
+    position: relative;
+    z-index: 998;
+  }
+  .result .details {
+    font-size: 0.8rem;
+  }
+  .word h3 {
+    font-size: 1rem;
+  }
+  .word-meaning,
+  .word-example {
+    font-size: 0.6rem;
+  }
 }

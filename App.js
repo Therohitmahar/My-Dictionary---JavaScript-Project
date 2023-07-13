@@ -12,6 +12,7 @@ if (previousData == null) {
 
 const existingArrayString = localStorage.getItem("history");
 const existingArray = existingArrayString ? JSON.parse(existingArrayString) : [];
+const modeBtn = document.getElementById("mode")
 
 function deleteHistory(title) {
     const deleteMe = topThree.filter(item => item.title !== title);
@@ -70,6 +71,7 @@ function searchWord() {
     </p>`;
 
             setToLocalStorage(data[0].word, data[0].meanings[0].definitions[0].definition);
+            input.value = ""
 
             if (`${data[0].phonetics[0].audio}`.includes("https")) {
                 sound.setAttribute("src", `${data[0].phonetics[0].audio}`);
@@ -112,3 +114,15 @@ let historyBtn = document.getElementById("history-btn")
 historyBtn.addEventListener('click', () => {
     aside.style.display = "block";
 });
+
+
+modeBtn.onclick = () => {
+
+    document.body.classList.toggle("dark")
+    if (document.body.classList.contains("dark")) {
+        modeBtn.innerText = "Switch to Light"
+    }
+    else {
+        modeBtn.innerText = "Switch To Dark"
+    }
+}
