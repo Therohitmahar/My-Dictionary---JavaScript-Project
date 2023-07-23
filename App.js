@@ -35,9 +35,7 @@ function Settinghistory() {
     before.innerHTML = (topThree.reverse().map((item) => (`<div class="container-tab">
         <div><h1>${item.title}</h1><p><i onclick="deleteHistory('${item.title}')" class="fa-solid fa-trash-can"></i></p></div>
         <p>${item.meaning}
-        </p>
-
-        
+        </p>        
     </div>`))
     )
 }

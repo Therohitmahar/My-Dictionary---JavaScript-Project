@@ -12,17 +12,16 @@
 }
 body {
   background-color: var(--bg-color);
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  width: 90%;
+  height: 90vh;
   /* display: flex; */
 }
 body.dark {
-  --bg-color: #1b1914;
-  --shadow-color: #585858;
-  --btn-bg: #684646;
-  --btn-shadow: #3d2b1f;
-  --text-color: #d38d3f;
+  --bg-color: #161616;
+  --shadow-color: #5c5c5c;
+  --btn-bg: #4b4b4b;
+  --btn-shadow: #ffffff;
+  --text-color: #ffffff;
 }
 nav {
   background-color: var(--bg-color);
@@ -163,13 +162,9 @@ nav button {
 }
 
 aside {
-  display: flex;
   position: relative;
   width: 100%;
   z-index: 22;
-  height: 100;
-  justify-content: center;
-  align-items: center;
   display: none;
   align-self: center;
   transform: translateX(50px) translateY(-500px);
@@ -213,29 +208,27 @@ aside {
   object-fit: contain;
   padding: 5px;
 }
-aside div {
-  position: relative;
-}
+
 .cross {
   position: absolute;
   z-index: 22;
   right: 150px;
   top: 40px;
 }
-aside div h2 {
+aside h2 {
   position: relative;
-  width: 20%;
   font-size: 25px;
   z-index: 24;
+  background-position-x: right;
   background-color: var(--btn-bg);
 }
 
 @media screen and (max-width: 425px) {
   body {
-    font-size: 0.1rem;
+    width: 95vw;
   }
   nav {
-    width: 100vw;
+    width: 100%;
     position: relative;
     z-index: 88;
     height: auto;
@@ -244,19 +237,17 @@ aside div h2 {
     margin: 0 10px;
   }
   nav img {
-    width: 25%;
+    width: 5rem;
     margin-left: 0;
     height: auto;
   }
   nav button {
-    width: 15%;
-    position: static;
-    font-size: 10px;
-    height: auto;
-    padding: 0;
-    margin: 10px;
     box-shadow: 0px 2px 5px var(--btn-shadow);
-    display: block;
+    margin: 0.3rem;
+    font-size: 0.6rem;
+  }
+  nav div {
+    display: flex;
   }
   main {
     /* margin-top: 50px; */
@@ -274,7 +265,6 @@ aside div h2 {
     flex-direction: column;
     overflow: auto;
     position: relative;
-    z-index: 1121;
   }
   .container .input-box {
     flex-direction: column;
@@ -303,5 +293,46 @@ aside div h2 {
   .word-meaning,
   .word-example {
     font-size: 0.6rem;
+  }
+
+  aside {
+    position: relative;
+    width: 70%;
+  }
+  .before {
+    position: relative;
+    background-color: var(--btn-bg);
+    width: 90%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 22;
+  }
+  .before .container-tab {
+    margin: 0;
+  }
+
+  .container-tab div {
+    font-size: 0.5rem;
+  }
+  .before .container-tab h1 {
+    font-size: 1rem;
+  }
+  .before .container-tab p {
+    font-size: 0.5rem;
+  }
+  aside div {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .cross {
+    position: relative;
+    z-index: 222;
+  }
+  aside div h2 {
+    background-color: var(--btn-bg);
   }
 }
