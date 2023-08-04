@@ -80,6 +80,7 @@ function searchWord(inputWord) {
             if (`${data[0].phonetics[0].audio}`.includes("https")) {
                 sound.setAttribute("src", `${data[0].phonetics[0].audio}`);
 
+
             }
             else if (`${data[0].phonetics[1].audio}`.includes("https")) {
                 sound.setAttribute("src", `${data[0].phonetics[1].audio}`);
