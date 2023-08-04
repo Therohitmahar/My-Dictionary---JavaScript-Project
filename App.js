@@ -1,3 +1,5 @@
+import { wordList as words } from "./words.js";
+
 let topThree;
 const myArray = [
     { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
@@ -46,9 +48,13 @@ const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 const result = document.getElementById('result');
 const sound = document.getElementById('sound');
 const btn = document.getElementById('search-btn');
-let input = document.getElementById('input');
-function searchWord() {
-    let inputWord = input.value;
+let suggestionList = document.getElementById('suggestionList');
+
+function playSound() {
+    sound.play();
+}
+function searchWord(inputWord) {
+
 
     fetch(`${url}${inputWord}`)
         .then((response) => response.json())
@@ -91,17 +97,23 @@ function searchWord() {
         .catch(() => {
             result.innerHTML = `<h3 class="error" >Couldn't Find The Word '${inputWord}'</h3>`
         })
+    suggestionList.innerHTML = ""
 }
-btn.addEventListener('click', searchWord);
+btn.addEventListener('click', () => {
+    let input = document.getElementById('input').value;
+
+    searchWord(input)
+});
+
 input.addEventListener('keypress', function (event) {
     if (event.keyCode === 13) {
-        searchWord();
+        let input = document.getElementById('input').value;
+
+        searchWord(input);
     }
 });
 
-function playSound() {
-    sound.play();
-}
+
 function crossing() {
     aside.style.display = "none";
 }
@@ -123,4 +135,22 @@ modeBtn.onclick = () => {
     else {
         modeBtn.innerText = "Switch To Dark"
     }
+}
+input.oninput = (e) => {
+    let filteredWord = words.filter(word => word.toLowerCase().startsWith(e.target.value)).slice(0, 3)
+
+    if (e.target.value.length > 0) {
+
+        suggestionList.innerHTML = filteredWord.map(item => (`<li>${item}</li>`)).join("")
+    }
+    else {
+        suggestionList.innerHTML = ""
+    }
+    const suggestionItem = Array.from(suggestionList.children);
+    suggestionItem.forEach(suggestion => {
+        suggestion.onclick = () => {
+            console.log(suggestion.innerText);
+            searchWord(suggestion.innerText)
+        }
+    });
 }

@@ -23,7 +23,7 @@
     />
     <title>Dictionary</title>
   </head>
-  <body class="dark">
+  <body class="">
     <header>
       <nav>
         <ul>
@@ -40,7 +40,14 @@
       <audio id="sound"></audio>
       <div class="container">
         <div class="input-box">
-          <input type="text" placeholder="Enter the Word Here..." id="input" />
+          <div>
+            <input
+              type="text"
+              placeholder="Enter the Word Here..."
+              id="input"
+            />
+            <ul class="suggestion-container" id="suggestionList"></ul>
+          </div>
           <button id="search-btn">
             <label style="cursor: pointer"
               ><i class="fa-solid fa-magnifying-glass"></i> Search</label
@@ -59,6 +66,6 @@
         class="cross fa-sharp fa-solid fa-circle-xmark"
       ></i>
     </aside>
-    <script src="App.js"></script>
+    <script src="App.js" type="module"></script>
   </body>
 </html>

@@ -1,7 +1,9 @@
 :root {
   --bg-color: #fffbac;
   --shadow-color: #915228;
-  --btn-bg: #faab78;
+  --btn-bg: #f0a675;
+  --suggestion-bg: #d88c59;
+  --suggestion-div-bg: #b17a56;
   --btn-shadow: #a37150;
   --text-color: #f8efe2;
 }
@@ -76,16 +78,19 @@ nav button {
 .input-box {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .input-box input {
   padding: 5px;
   background-color: var(--btn-bg);
-  width: 70%;
   outline: none;
   border: none;
   border-bottom: 3px solid var(--text-color);
   color: var(--text-color);
+}
+.input-box div {
+  display: flex;
+  flex-direction: column;
 }
 .input-box input::placeholder {
   color: var(--text-color);
@@ -93,7 +98,7 @@ nav button {
 }
 .input-box button {
   padding: 10px;
-  width: 50%;
+  /* width: 50%; */
   height: 5%;
   background-color: var(--text-color);
   border: none;
@@ -103,11 +108,24 @@ nav button {
   font-size: 18px;
   display: inline-block;
   aspect-ratio: 9/1;
+  margin: 6px;
 }
 .input-box button:hover {
   background-color: #f5f09a;
 
   transition: 0.4s;
+}
+ul.suggestion-container {
+  width: 100%;
+  margin-block: 5px;
+  background-color: var(--suggestion-div-bg);
+  list-style: none;
+}
+
+.suggestion-container li {
+  background-color: var(--suggestion-bg);
+  margin: 2px;
+  cursor: pointer;
 }
 
 .result {
