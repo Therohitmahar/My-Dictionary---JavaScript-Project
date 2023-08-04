@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <!-- <script src="https://kit.fontawesome.com/9cbd9dce4b.js" crossorigin="anonymous"></script> -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
@@ -24,15 +23,15 @@
     />
     <title>Dictionary</title>
   </head>
-  <body>
+  <body class="">
     <header>
       <nav>
         <ul>
           <li><img src="img/logo.png" alt="" /></li>
-          <li>Contact</li>
-          <li>Docs</li>
-          <li>Source</li>
-          <li>About</li>
+          <div>
+            <button id="mode">Switch To Dark</button>
+            <button id="history-btn">History</button>
+          </div>
         </ul>
       </nav>
     </header>
@@ -41,7 +40,14 @@
       <audio id="sound"></audio>
       <div class="container">
         <div class="input-box">
-          <input type="text" placeholder="Enter the Word Here..." id="input" />
+          <div>
+            <input
+              type="text"
+              placeholder="Enter the Word Here..."
+              id="input"
+            />
+            <ul class="suggestion-container" id="suggestionList"></ul>
+          </div>
           <button id="search-btn">
             <label style="cursor: pointer"
               ><i class="fa-solid fa-magnifying-glass"></i> Search</label
@@ -51,22 +57,15 @@
         <div class="result" id="result"></div>
       </div>
     </main>
-    <footer>
-      <div>
-        <li>
-          <a href=""><i class="fa-brands fa-github"></i>Github</a>
-        </li>
-        <li>
-          <a href=""><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
-        </li>
-        <li>
-          <a href=""><i class="fa-sharp fa-solid fa-file"></i>Resume</a>
-        </li>
-        <li>
-          <a href=""><i class="fa-sharp fa-solid fa-share-nodes"></i>Socials</a>
-        </li>
-      </div>
-    </footer>
-    <script src="App.js"></script>
+    <aside>
+      <h2>History</h2>
+      <div class="before"></div>
+      <i
+        id="cross"
+        onclick="crossing()"
+        class="cross fa-sharp fa-solid fa-circle-xmark"
+      ></i>
+    </aside>
+    <script src="App.js" type="module"></script>
   </body>
 </html>

@@ -8,25 +8,23 @@ body {
   background-color: #fffbac;
 }
 nav {
-  background-color: #f1ec7a;
+  background-color: #fffbac;
   height: 70px;
 }
 button {
   cursor: pointer;
+}
+main {
+  display: flex;
+  height: 90%;
+  align-items: center;
+  justify-content: center;
 }
 nav ul {
   margin: 0px 50px;
   display: flex;
   list-style: none;
   justify-content: space-between;
-  align-items: center;
-}
-nav ul li:first-child {
-  margin-right: 400px;
-}
-nav ul li:hover {
-  cursor: pointer;
-  color: grey;
 }
 nav img {
   margin: 5px;
@@ -92,6 +90,18 @@ nav button {
   background-color: #f5f09a;
 
   transition: 0.4s;
+}
+ul.suggestion-container {
+  width: 100%;
+  margin-block: 5px;
+  background-color: var(--suggestion-div-bg);
+  list-style: none;
+}
+
+.suggestion-container li {
+  background-color: var(--suggestion-bg);
+  margin: 2px;
+  cursor: pointer;
 }
 
 .result {

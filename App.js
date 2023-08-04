@@ -1,18 +1,66 @@
+import { wordList as words } from "./words.js";
+
+let topThree;
+const myArray = [
+    { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
+    { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
+    { title: "Title", meaning: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quiaqui, architecto dolorem nostrum commodiste!ollitia necessitatibus maxime" },
+];
+const previousData = localStorage.getItem("history");
+if (previousData == null) {
+    const arrayString = JSON.stringify(myArray);
+    localStorage.setItem("history", arrayString);
+}
+
+const existingArrayString = localStorage.getItem("history");
+const existingArray = existingArrayString ? JSON.parse(existingArrayString) : [];
+const modeBtn = document.getElementById("mode")
+
+function deleteHistory(title) {
+    const deleteMe = topThree.filter(item => item.title !== title);
+    localStorage.setItem("history", JSON.stringify(deleteMe));
+    console.log(deleteMe);
+    Settinghistory();
+}
+function setToLocalStorage(title, meaning) {
+    const newWord = { title: title, meaning: meaning };
+    existingArray.push(newWord);
+
+    localStorage.setItem("history", JSON.stringify(existingArray.slice(-3, existingArray.length)));
+    Settinghistory();
+}
+function Settinghistory() {
+    const before = document.querySelector('.before');
+    const historyData = localStorage.getItem("history");
+    topThree = JSON.parse(historyData);
+
+    before.innerHTML = (topThree.reverse().map((item) => (`<div class="container-tab">
+        <div><h1>${item.title}</h1><p><i onclick="deleteHistory('${item.title}')" class="fa-solid fa-trash-can"></i></p></div>
+        <p>${item.meaning}
+        </p>        
+    </div>`))
+    )
+}
+
+Settinghistory();
 
 const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
-let arr = ["rohit", "sameer"]
 const result = document.getElementById('result');
 const sound = document.getElementById('sound');
 const btn = document.getElementById('search-btn');
-let input = document.getElementById('input');
-function searchWord() {
-    let inputWord = input.value;
+let suggestionList = document.getElementById('suggestionList');
+
+function playSound() {
+    sound.play();
+}
+function searchWord(inputWord) {
+
 
     fetch(`${url}${inputWord}`)
         .then((response) => response.json())
         .then((data) => {
             result.innerHTML = `<div class="word">
-        <h3>${inputWord}</h3>
+        <h3>${data[0].word}</h3>
         <button onClick="playSound()"><img src="img/volume-up-interface-symbol.png"></button>
     </div>
     <div class="details">
@@ -25,6 +73,9 @@ function searchWord() {
     <p class="word-example">
        ${data[0].meanings[0].definitions[0].example || ""}
     </p>`;
+
+            setToLocalStorage(data[0].word, data[0].meanings[0].definitions[0].definition);
+            input.value = ""
 
             if (`${data[0].phonetics[0].audio}`.includes("https")) {
                 sound.setAttribute("src", `${data[0].phonetics[0].audio}`);
@@ -39,47 +90,67 @@ function searchWord() {
 
             }
             else {
-                console.log("dont have auido")
+                console.log("don't have audio")
             }
-
 
         })
         .catch(() => {
-            result.innerHTML = `<h3 class="error" >Coudn't Find The Word '${inputWord}'</h3>`
+            result.innerHTML = `<h3 class="error" >Couldn't Find The Word '${inputWord}'</h3>`
         })
+    suggestionList.innerHTML = ""
 }
-btn.addEventListener('click', searchWord);
+btn.addEventListener('click', () => {
+    let input = document.getElementById('input').value;
+
+    searchWord(input)
+});
+
 input.addEventListener('keypress', function (event) {
     if (event.keyCode === 13) {
-        searchWord();
+        let input = document.getElementById('input').value;
+
+        searchWord(input);
     }
 });
 
-function playSound() {
-    sound.play();
+
+function crossing() {
+    aside.style.display = "none";
 }
-let history_page = document.getElementById('history-page');
-let bigcontainer = document.querySelector('.bigcontainer');
 
-document.getElementById('history-btn').addEventListener('click', () => {
-    history_page.style.display = "block";
-    console.log("hello")
+const aside = document.querySelector('aside');
+const beforePage = document.querySelector('.before')
+let historyBtn = document.getElementById("history-btn")
+historyBtn.addEventListener('click', () => {
+    aside.style.display = "block";
 });
-let close = document.getElementById('cross');
-close.addEventListener('click', () => {
-    history_page.style.display = "none";
 
-});
-// sections.forEach((word,index) => {
-//     let container = document.createElement('div');
-//     let heading = document.createElement('h1');
-//     let disc = document.createElement('p');
-//     container.classList.add("history-container",`container${index+1}`);
 
-//     heading.innerHTML =word.title;
-//     disc.innerHTML =word.text;
-//     container.appendChild(heading);
-//     container.appendChild(disc);
-//     bigcontainer.appendChild(container);
-// });
-// console.log(history_page)
+modeBtn.onclick = () => {
+
+    document.body.classList.toggle("dark")
+    if (document.body.classList.contains("dark")) {
+        modeBtn.innerText = "Switch to Light"
+    }
+    else {
+        modeBtn.innerText = "Switch To Dark"
+    }
+}
+input.oninput = (e) => {
+    let filteredWord = words.filter(word => word.toLowerCase().startsWith(e.target.value)).slice(0, 3)
+
+    if (e.target.value.length > 0) {
+
+        suggestionList.innerHTML = filteredWord.map(item => (`<li>${item}</li>`)).join("")
+    }
+    else {
+        suggestionList.innerHTML = ""
+    }
+    const suggestionItem = Array.from(suggestionList.children);
+    suggestionItem.forEach(suggestion => {
+        suggestion.onclick = () => {
+            console.log(suggestion.innerText);
+            searchWord(suggestion.innerText)
+        }
+    });
+}
