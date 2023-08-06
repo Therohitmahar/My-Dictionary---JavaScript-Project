@@ -141,7 +141,7 @@ modeBtn.onclick = () => {
     }
 }
 input.oninput = (e) => {
-    let filteredWord = words.filter(word => word.toLowerCase().startsWith(e.target.value)).slice(0, 3)
+    let filteredWord = words.filter(word => word.toLowerCase().startsWith(e.target.value.toLowerCase())).slice(0, 3)
 
     if (e.target.value.length > 0) {
 
