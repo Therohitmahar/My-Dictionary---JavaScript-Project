@@ -54,7 +54,10 @@ const btn = document.getElementById('search-btn');
 let suggestionList = document.getElementById('suggestionList');
 
 function searchWord(inputWord) {
-
+    if (inputWord == null || inputWord == undefined || inputWord.trim() == "") {
+        alert("Please Enter A Word")
+        return;
+    }
     fetch(`${url}${inputWord}`)
         .then((response) => response.json())
         .then((data) => {
@@ -104,7 +107,6 @@ btn.addEventListener('click', () => {
 input.addEventListener('keypress', function (event) {
     if (event.keyCode === 13) {
         let input = document.getElementById('input').value;
-
         searchWord(input);
     }
 });
