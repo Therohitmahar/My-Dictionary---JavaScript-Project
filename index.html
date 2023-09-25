@@ -14,6 +14,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="toggle.css" />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,7 +30,13 @@
         <ul>
           <li><img src="img/logo.png" alt="" /></li>
           <div>
-            <button id="mode">Switch To Dark</button>
+            <label class="dark-mode" for="toggle">Dark Mode</label>
+
+            <div class="toggle-switch">
+              <input class="toggle-input" id="toggle" type="checkbox" />
+              <label class="toggle-label" for="toggle"></label>
+            </div>
+
             <button id="history-btn">History</button>
           </div>
         </ul>
@@ -60,12 +67,12 @@
     <aside>
       <h2>History</h2>
       <div class="before"></div>
-      <i
-        id="cross"
-        onclick="crossing()"
-        class="cross fa-sharp fa-solid fa-circle-xmark"
-      ></i>
     </aside>
-    <script src="App.js" type="module"></script>
+    <script src="App.js"></script>
+    <!-- Development version -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Production version -->
+    <!-- <script src="https://unpkg.com/lucide@latest"></script> -->
   </body>
 </html>

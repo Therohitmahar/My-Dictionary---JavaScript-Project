@@ -5,29 +5,36 @@
   --suggestion-bg: #d88c59;
   --suggestion-div-bg: #b17a56;
   --btn-shadow: #a37150;
-  --text-color: #f8efe2;
+  --text-color: #fcf5ed;
+  --container-shadow: 0 20px 40px var(--btn-bg);
+  --mode-btn: #5f5f5f;
 }
 * {
   margin: 0;
   padding: 0;
   font-family: "Space Mono", monospace;
+  /* outline: 1px solid; */
 }
+
 body {
   background-color: var(--bg-color);
-  width: 90%;
   height: 90vh;
-  /* display: flex; */
 }
 body.dark {
-  --bg-color: #161616;
-  --shadow-color: #5c5c5c;
-  --btn-bg: #4b4b4b;
-  --btn-shadow: #ffffff;
-  --text-color: #ffffff;
+  --bg-color: #15191d;
+  --shadow-color: #212529;
+  --btn-bg: #000000;
+  --btn-shadow: #000000;
+  --text-color: #f3f3f3;
+  --suggestion-bg: #262626;
+  --suggestion-div-bg: #252323;
+  --container-shadow: 0 20px 4px var(--btn-bg);
+  --mode-btn: #bbb;
 }
 nav {
   background-color: var(--bg-color);
   height: 70px;
+  width: 100vw;
   box-shadow: 0 2px 8px var(--shadow-color);
 }
 button {
@@ -39,6 +46,7 @@ main {
   align-items: center;
   justify-content: center;
 }
+
 nav ul {
   margin: 0px 50px;
   display: flex;
@@ -54,6 +62,20 @@ nav img {
 nav div {
   height: 100%;
 }
+nav ul div {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+nav ul div .toggle-switch {
+  display: flex;
+  position: relative;
+  top: -10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 nav button {
   margin: 15px 0;
   padding: 10px 10px;
@@ -62,6 +84,7 @@ nav button {
   border: transparent;
   background-color: var(--btn-bg);
   box-shadow: 2px 1px 5px var(--btn-shadow);
+  color: var(--text-color);
 }
 
 .container {
@@ -69,7 +92,7 @@ nav button {
   position: relative;
   padding: 80px 50px;
   border-radius: 10px;
-  box-shadow: 0 20px 40px var(--btn-bg);
+  box-shadow: var(--container-shadow);
   transition: 0.5s;
   width: 35%;
   z-index: 1;
@@ -78,6 +101,7 @@ nav button {
 .input-box {
   width: 100%;
   display: flex;
+  align-items: self-start;
   justify-content: center;
 }
 .input-box input {
@@ -85,8 +109,16 @@ nav button {
   background-color: var(--btn-bg);
   outline: none;
   border: none;
-  border-bottom: 3px solid var(--text-color);
   color: var(--text-color);
+  border-bottom: 3px solid var(--text-color);
+  transition: 1s;
+}
+.dark-mode {
+  color: var(--mode-btn);
+  cursor: pointer;
+}
+.input-box input:focus {
+  border-bottom: 3px solid var(--suggestion-bg);
 }
 .input-box div {
   display: flex;
@@ -99,7 +131,7 @@ nav button {
 .input-box button {
   padding: 10px;
   /* width: 50%; */
-  height: 5%;
+  /* height: 5%; */
   background-color: var(--text-color);
   border: none;
   border-radius: 25px;
@@ -107,25 +139,27 @@ nav button {
   color: var(--btn-bg);
   font-size: 18px;
   display: inline-block;
-  aspect-ratio: 9/1;
+  /* aspect-ratio: 9/1; */
   margin: 6px;
 }
 .input-box button:hover {
-  background-color: #f5f09a;
-
+  background-color: #f5f19a;
   transition: 0.4s;
 }
 ul.suggestion-container {
   width: 100%;
   margin-block: 5px;
-  background-color: var(--suggestion-div-bg);
   list-style: none;
+  border-end-end-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .suggestion-container li {
-  background-color: var(--suggestion-bg);
-  margin: 2px;
+  background-color: var(--btn-shadow);
   cursor: pointer;
+  border: 1px solid white;
+  border-top: none;
+  color: var(--text-color);
 }
 
 .result {
@@ -180,13 +214,16 @@ ul.suggestion-container {
 }
 
 aside {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  width: 90%;
   z-index: 22;
   display: none;
   align-self: center;
-  transform: translateX(50px) translateY(-500px);
+  top: 50%;
+  right: 50%;
+  transform: translate(55%, -500%);
 }
+
 .before {
   position: absolute;
   top: 25%;
@@ -202,6 +239,7 @@ aside {
   gap: 10px;
   border-radius: 10px;
   z-index: 22;
+  outline: 1px solid white;
 }
 .container-tab div {
   display: flex;
@@ -214,10 +252,12 @@ aside {
   width: 200px;
   height: 80%;
   max-height: 100%;
-  box-shadow: 0 20px 40px var(--shadow-color);
+  box-shadow: var(--container-shadow);
   margin: 20px;
   object-fit: fill;
   overflow: auto;
+  border: 1px solid;
+  color: var(--text-color);
 }
 .before .container-tab h1 {
   margin-bottom: 20px;
@@ -226,12 +266,23 @@ aside {
   object-fit: contain;
   padding: 5px;
 }
-
+.cross-container {
+  position: relative;
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+  z-index: inherit;
+}
 .cross {
   position: absolute;
   z-index: 22;
-  right: 150px;
-  top: 40px;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.before i {
+  cursor: pointer;
+  color: var(--text-color);
 }
 aside h2 {
   position: relative;
@@ -239,12 +290,29 @@ aside h2 {
   z-index: 24;
   background-position-x: right;
   background-color: var(--btn-bg);
+  display: inline-block;
+  color: white;
+  text-decoration: underline;
+}
+@media screen and (max-width: 768px) {
+  .before {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  nav {
+    width: 100vw;
+  }
+  .before .container-tab {
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 20px 40px var(--shadow-color);
+    object-fit: fill;
+    overflow: auto;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 425px) {
-  body {
-    width: 95vw;
-  }
   nav {
     width: 100%;
     position: relative;
@@ -314,20 +382,29 @@ aside h2 {
   }
 
   aside {
-    position: relative;
-    width: 70%;
+    position: absolute;
+    width: 90vw;
+    z-index: 22;
+    display: none;
+    align-self: center;
+    top: 20%;
+    right: 43%;
+    transform: translate(55%, -500%);
   }
   .before {
-    position: relative;
+    position: absolute;
+    top: 0;
     background-color: var(--btn-bg);
-    width: 90%;
-    margin: 0;
+    width: 90vw;
+    left: -40px;
+    /* margin: 0; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 22;
+    /* z-index: 22; */
   }
+
   .before .container-tab {
     margin: 0;
   }
@@ -347,10 +424,14 @@ aside h2 {
     padding: 0;
   }
   .cross {
-    position: relative;
-    z-index: 222;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
-  aside div h2 {
+  aside h2 {
     background-color: var(--btn-bg);
+    font-size: 1rem;
+    position: absolute;
+    left: -20px;
   }
 }
